@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App bg-dark text-light">
       <div className="container text-center">
-        <h1 className="mb-3">Shopping List</h1>
+        <h1>Shopping List</h1>
         <List></List>
       </div>
     </div>

@@ -31,6 +31,9 @@ class List extends React.Component {
          <div>
             <AddItem onAdd={this.addItem}></AddItem>
             <div>{listItems}</div>
+            {this.state.items.length > 0 &&
+               <AddItem onAdd={this.addItem}></AddItem>
+            }
          </div>
       );
    }
