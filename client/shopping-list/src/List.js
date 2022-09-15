@@ -8,10 +8,17 @@ class List extends React.Component {
       this.state = {
          items: []
       };
-      this.addItem = this.addItem.bind(this);
+      this.addToStart = this.addToStart.bind(this);
+      this.addToEnd = this.addToEnd.bind(this);
    }
 
-   addItem(value) {
+   addToStart(value) {
+      this.setState(state => ({
+         items: [value].concat(state.items)
+      }));
+   }
+
+   addToEnd(value) {
       this.setState(state => ({
          items: state.items.concat(value)
       }));
@@ -29,10 +36,10 @@ class List extends React.Component {
       );
       return (
          <div>
-            <AddItem onAdd={this.addItem}></AddItem>
+            <AddItem onAdd={this.addToStart}></AddItem>
             <div>{listItems}</div>
             {this.state.items.length > 0 &&
-               <AddItem onAdd={this.addItem}></AddItem>
+               <AddItem onAdd={this.addToEnd}></AddItem>
             }
          </div>
       );
