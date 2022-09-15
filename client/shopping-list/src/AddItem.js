@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 class AddItem extends React.Component {
@@ -13,7 +12,9 @@ class AddItem extends React.Component {
    }
 
    handleChange(e) {
-      this.setState({ text: e.target.value });
+      this.setState({ 
+         text: e.target.value
+      });
    }
 
    handleSubmit(e) {
@@ -21,11 +22,14 @@ class AddItem extends React.Component {
       const value = this.state.text;
       if (value.length > 0) {
          if (this.props.onAdd) {
-            this.props.onAdd(value);
+            this.props.onAdd({
+               id: Date.now(),
+               text: this.state.text
+            });
          }
-         this.setState(state => ({
+         this.setState({
             text: ''
-         }));
+         });
       }
    }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import AddItem from './AddItem';
+import ListItem from './ListItem';
 
 class List extends React.Component {
 
@@ -25,13 +26,13 @@ class List extends React.Component {
    }
 
    render() {
-      const listItems = this.state.items.map((value, index) => 
-         <div className="input-group" key={index}>
+      const listItems = this.state.items.map((item) => 
+         <div className="input-group" key={item.id}>
             <div className="bg-dark border-secondary input-group-text">
                <input className="bg-dark border-primary form-check-input mt-0" type="checkbox" value=""
                      aria-label="Checkbox for list item." disabled/>
             </div>
-            <input className="form-control bg-dark border-secondary text-light" value={value}/>
+            <input className="form-control bg-dark border-secondary text-light" value={item.text}/>
          </div>
       );
       return (
