@@ -19,12 +19,18 @@ class List extends React.Component {
 
    render() {
       const listItems = this.state.items.map((value, index) => 
-         <li key={index}>{value}</li>
+         <div className="input-group" key={index}>
+            <div className="bg-dark border-secondary input-group-text">
+               <input className="bg-dark border-primary form-check-input mt-0" type="checkbox" value=""
+                     aria-label="Checkbox for list item." disabled/>
+            </div>
+            <input className="form-control bg-dark border-secondary text-light" value={value}/>
+         </div>
       );
       return (
          <div>
             <AddItem onAdd={this.addItem}></AddItem>
-            <ul>{listItems}</ul>
+            <div>{listItems}</div>
          </div>
       );
    }
