@@ -25,15 +25,23 @@ class List extends React.Component {
       }));
    }
 
+   handleItemUpdate = (updatedItem) => {
+      const items = this.state.items.map(item => {
+         if (item.id === updatedItem.id) {
+            return {
+               ...item,
+               text: updatedItem.text
+            }
+         } else {
+            return item;
+         }
+      });
+      this.setState({ items: items });
+   }
+
    render() {
       const listItems = this.state.items.map((item) => 
-         <div className="input-group" key={item.id}>
-            <div className="bg-dark border-secondary input-group-text">
-               <input className="bg-dark border-primary form-check-input mt-0" type="checkbox" value=""
-                     aria-label="Checkbox for list item." disabled/>
-            </div>
-            <input className="form-control bg-dark border-secondary text-light" value={item.text}/>
-         </div>
+         <ListItem key={item.id} value={item} onChange={this.handleItemUpdate}></ListItem>
       );
       return (
          <div>
