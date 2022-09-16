@@ -41,13 +41,13 @@ class ListItem extends React.Component {
       );
       let inputGroup = (
          <div className="input-group">
-            <div className="bg-dark border-secondary input-group-text">
+            <div className="bg-dark border-0 input-group-text">
                {checkbox}
             </div>
-            <input className="form-control bg-dark border-secondary text-light"
+            <input className="form-control bg-dark border-0 text-light"
                onChange={this.handleChange}
                value={this.props.value.text}/>
-            <div className="bg-dark border-secondary input-group-text">
+            <div className="bg-dark border-0 input-group-text">
                <button className="btn btn-sm btn-danger" type="button" 
                      onClick={this.handleDelete} aria-label="Remove list item.">
                   <i className="fa-solid fa-trash"></i>
