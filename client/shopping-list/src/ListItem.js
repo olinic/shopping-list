@@ -2,13 +2,7 @@ import React from 'react';
 
 class ListItem extends React.Component {
 
-   constructor(props) {
-      super(props);
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-   }
-
-   handleChange(e) {
+   handleChange = (e) => {
       if (this.props.onChange) {
          this.props.onChange({
             id: this.props.value.id,
@@ -17,12 +11,18 @@ class ListItem extends React.Component {
       }
    }
 
-   handleSubmit(e) {
+   handleSubmit = (e) => {
       e.preventDefault();
       if (this.props.onReturn) {
          this.props.onReturn();
       }
    }
+
+   handleDelete = () => {
+      if (this.props.onDelete) {
+         this.props.onDelete(this.props.value);
+      }
+   };
 
    render() {
       return (
@@ -35,6 +35,12 @@ class ListItem extends React.Component {
                <input className="form-control bg-dark border-secondary text-light"
                   onChange={this.handleChange}
                   value={this.props.value.text}/>
+               <div className="bg-dark border-secondary input-group-text">
+                  <button className="btn btn-sm btn-danger" type="button" 
+                        onClick={this.handleDelete} aria-label="Remove list item.">
+                     <i className="fa-solid fa-trash"></i>
+                  </button>
+               </div>
             </div>
          </form>
       );

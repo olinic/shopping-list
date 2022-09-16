@@ -39,9 +39,19 @@ class List extends React.Component {
       this.setState({ items: items });
    }
 
+   handleItemDelete = (deletedItem) => {
+      const items = this.state.items.filter(item => {
+         return (item.id !== deletedItem.id);
+      });
+      this.setState({ items: items });
+   }
+
    render() {
       const listItems = this.state.items.map((item) => 
-         <ListItem key={item.id} value={item} onChange={this.handleItemUpdate}></ListItem>
+         <ListItem key={item.id} value={item}
+               onChange={this.handleItemUpdate}
+               onDelete={this.handleItemDelete}>
+         </ListItem>
       );
       return (
          <div>
