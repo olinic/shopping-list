@@ -28,10 +28,7 @@ class List extends React.Component {
    handleItemUpdate = (updatedItem) => {
       const items = this.state.items.map(item => {
          if (item.id === updatedItem.id) {
-            return {
-               ...item,
-               text: updatedItem.text
-            }
+            return updatedItem;
          } else {
             return item;
          }
