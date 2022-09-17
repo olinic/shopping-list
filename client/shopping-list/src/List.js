@@ -57,6 +57,18 @@ class List extends React.Component {
       );
    }
 
+   textSort(a, b) {
+      const textA = a.text.toUpperCase();
+      const textB = b.text.toUpperCase();
+      if (textA > textB) {
+         return 1;
+      } else if (textA < textB) {
+         return -1;
+      } else {
+         return 0
+      }
+   }
+
    render() {
       let mainList;
       let checkedList = [];
@@ -64,7 +76,10 @@ class List extends React.Component {
          mainList = this.state.items.map(item => this.renderListItem(item));
       } else {
          mainList = this.state.items.filter(item => !item.isComplete).map(item => this.renderListItem(item));
-         checkedList = this.state.items.filter(item => item.isComplete).map(item => this.renderListItem(item));
+         checkedList = this.state.items
+               .filter(item => item.isComplete)
+               .sort(this.textSort)
+               .map(item => this.renderListItem(item));
       }
       return (
          <div>
