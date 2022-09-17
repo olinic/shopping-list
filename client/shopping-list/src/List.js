@@ -8,7 +8,7 @@ class List extends React.Component {
       super(props);
       this.state = {
          items: [],
-         isCombinedView: true
+         isCombinedView: false
       };
    }
 
@@ -81,8 +81,9 @@ class List extends React.Component {
             }
             {(checkedList.length > 0) &&
                <div>
+                  <br/>
                   <hr/>
-                  <h2>Checked Items</h2>
+                  <h2 className="text-secondary">Checked Items</h2>
                </div>
             }
             {checkedList}
