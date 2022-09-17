@@ -7,7 +7,8 @@ class List extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         items: []
+         items: [],
+         isCombinedView: true
       };
       this.addToStart = this.addToStart.bind(this);
       this.addToEnd = this.addToEnd.bind(this);
@@ -52,6 +53,10 @@ class List extends React.Component {
       );
       return (
          <div>
+            <div className="text-end">
+               <input type="checkbox" class="btn-check" id="btn-check-outlined" checked={this.state.isCombinedView} autocomplete="off"/>
+               <label class="btn btn-outline-light" for="btn-check-outlined">Combined View</label>
+            </div>
             <AddItem onAdd={this.addToStart}></AddItem>
             <div>{listItems}</div>
             {this.state.items.length > 0 &&
