@@ -25,7 +25,7 @@ class AddItem extends React.Component {
             this.props.onAdd({
                id: Date.now(),
                text: this.state.text,
-               isCompleted: false
+               isComplete: false
             });
          }
          this.setState({

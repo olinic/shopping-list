@@ -10,17 +10,21 @@ class List extends React.Component {
          items: [],
          isCombinedView: true
       };
-      this.addToStart = this.addToStart.bind(this);
-      this.addToEnd = this.addToEnd.bind(this);
    }
 
-   addToStart(value) {
+   toggleViewMode = () => {
+      this.setState({
+         isCombinedView: !this.state.isCombinedView
+      });
+   };
+
+   addToStart = (value) => {
       this.setState(state => ({
          items: [value].concat(state.items)
       }));
    }
 
-   addToEnd(value) {
+   addToEnd = (value) => {
       this.setState(state => ({
          items: state.items.concat(value)
       }));
@@ -44,24 +48,44 @@ class List extends React.Component {
       this.setState({ items: items });
    }
 
-   render() {
-      const listItems = this.state.items.map((item) => 
-         <ListItem key={item.id} value={item}
-               onChange={this.handleItemUpdate}
-               onDelete={this.handleItemDelete}>
-         </ListItem>
+   renderListItem(item) {
+      return (
+            <ListItem key={item.id} value={item}
+                  onChange={this.handleItemUpdate}
+                  onDelete={this.handleItemDelete}>
+            </ListItem>
       );
+   }
+
+   render() {
+      let mainList;
+      let checkedList = [];
+      if (this.state.isCombinedView) {
+         mainList = this.state.items.map(item => this.renderListItem(item));
+      } else {
+         mainList = this.state.items.filter(item => !item.isComplete).map(item => this.renderListItem(item));
+         checkedList = this.state.items.filter(item => item.isComplete).map(item => this.renderListItem(item));
+      }
       return (
          <div>
             <div className="text-end">
-               <input type="checkbox" class="btn-check" id="btn-check-outlined" checked={this.state.isCombinedView} autocomplete="off"/>
+               <input type="checkbox" class="btn-check" id="btn-check-outlined"
+                     checked={this.state.isCombinedView} autocomplete="off"
+                     onChange={this.toggleViewMode}/>
                <label class="btn btn-outline-light" for="btn-check-outlined">Combined View</label>
             </div>
             <AddItem onAdd={this.addToStart}></AddItem>
-            <div>{listItems}</div>
-            {this.state.items.length > 0 &&
+            <div>{mainList}</div>
+            {mainList.length > 0 &&
                <AddItem onAdd={this.addToEnd}></AddItem>
             }
+            {(checkedList.length > 0) &&
+               <div>
+                  <hr/>
+                  <h2>Checked Items</h2>
+               </div>
+            }
+            {checkedList}
          </div>
       );
    }

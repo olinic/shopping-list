@@ -6,7 +6,7 @@ class ListItem extends React.Component {
       if (this.props.onChange) {
          this.props.onChange( {
             ...this.props.value,
-            isCompleted: !this.props.value.isCompleted
+            isComplete: !this.props.value.isComplete
          });
       }
    };
@@ -36,7 +36,7 @@ class ListItem extends React.Component {
    render() {
       let checkbox = (
          <button className="btn btn-link" onClick={this.toggleCompletion}>
-            <i className={this.props.value.isCompleted ? "fa-regular fa-circle-check" : "fa-regular fa-circle"}></i>
+            <i className={this.props.value.isComplete ? "fa-regular fa-circle-check" : "fa-regular fa-circle"}></i>
          </button>
       );
       let inputGroup = (
@@ -55,7 +55,7 @@ class ListItem extends React.Component {
             </div>
          </div>
       );
-      if (this.props.value.isCompleted) {
+      if (this.props.value.isComplete) {
          inputGroup = (
             <del>{inputGroup}</del>
          );
