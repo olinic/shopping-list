@@ -41,6 +41,23 @@ class List extends React.Component {
       this.setState({ items: items });
    }
 
+   handleItemDrag = (selectedItem) => {
+      this.selectedItem = selectedItem;
+   }
+
+   handleItemMove = (itemToMove) => {
+      if (itemToMove !== this.selectedItem) {
+         let movedItems = this.state.items.slice();
+         let selectedIdx = movedItems.indexOf(this.selectedItem);
+         let targetIdx = movedItems.indexOf(itemToMove);
+         movedItems.splice(selectedIdx, 1);
+         movedItems.splice(targetIdx, 0, this.selectedItem);
+         this.setState({
+            items: movedItems
+         });
+      }
+   }
+
    handleItemDelete = (deletedItem) => {
       const items = this.state.items.filter(item => {
          return (item.id !== deletedItem.id);
@@ -52,6 +69,8 @@ class List extends React.Component {
       return (
             <ListItem key={item.id} value={item}
                   onChange={this.handleItemUpdate}
+                  onMove={this.handleItemMove}
+                  onDrag={this.handleItemDrag}
                   onDelete={this.handleItemDelete}>
             </ListItem>
       );
@@ -84,15 +103,15 @@ class List extends React.Component {
       return (
          <div>
             <div className="text-end">
-               <input type="checkbox" class="btn-check" id="btn-check-outlined"
-                     checked={this.state.isCombinedView} autocomplete="off"
+               <input type="checkbox" className="btn-check" id="btn-check-outlined"
+                     checked={this.state.isCombinedView} autoComplete="off"
                      onChange={this.toggleViewMode}/>
-               <label class="btn btn-outline-light" for="btn-check-outlined">Combined View</label>
+               <label className="btn btn-outline-light" htmlFor="btn-check-outlined">Combined View</label>
             </div>
-            <AddItem onAdd={this.addToStart}></AddItem>
+            <AddItem label="Add item to start" onAdd={this.addToStart}></AddItem>
             <div>{mainList}</div>
             {mainList.length > 0 &&
-               <AddItem onAdd={this.addToEnd}></AddItem>
+               <AddItem label="Add item to end" onAdd={this.addToEnd}></AddItem>
             }
             {(checkedList.length > 0) &&
                <div>

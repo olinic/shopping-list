@@ -37,15 +37,14 @@ class AddItem extends React.Component {
    render() {
       return (
          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="new-item" className="d-none">Add Item</label>
             <div className="input-group mb-3 mt-3">
-               <button id="add-item" type="submit" className="btn btn-outline-secondary bg-primary text-light">
+               <button aria-label={this.props.label} type="submit" className="btn btn-outline-secondary bg-primary text-light">
                   <i className="fa-plus fa-xl"></i> 
                </button>
-               <input id="new-item" type="text" className="form-control bg-dark text-light border-primary" 
+               <input type="text" className="form-control bg-dark text-light border-primary" 
                      onChange={this.handleChange}
                      value={this.state.text}
-                     placeholder="" aria-label="" aria-describedby="add-item"/>
+                     placeholder="" aria-label={this.props.label}/>
             </div>
          </form>
       );

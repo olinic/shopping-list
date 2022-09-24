@@ -8,6 +8,10 @@
   pointer-events: none;
 }
 
+.text-st {
+  text-decoration: line-through;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
