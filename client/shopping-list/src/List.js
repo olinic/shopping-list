@@ -8,13 +8,13 @@ class List extends React.Component {
       super(props);
       this.state = {
          items: [],
-         isCombinedView: false
+         isSortView: false
       };
    }
 
    toggleViewMode = () => {
       this.setState({
-         isCombinedView: !this.state.isCombinedView
+         isSortView: !this.state.isSortView
       });
    };
 
@@ -41,17 +41,21 @@ class List extends React.Component {
       this.setState({ items: items });
    }
 
-   handleItemDrag = (selectedItem) => {
-      this.selectedItem = selectedItem;
+   handleItemMoveUp = (itemToMove) => {
+      this.handleItemMove(itemToMove, (idx) => idx - 1);
    }
 
-   handleItemMove = (itemToMove) => {
-      if (itemToMove !== this.selectedItem) {
-         let movedItems = this.state.items.slice();
-         let selectedIdx = movedItems.indexOf(this.selectedItem);
-         let targetIdx = movedItems.indexOf(itemToMove);
+   handleItemMoveDown = (itemToMove) => {
+      this.handleItemMove(itemToMove, (idx) => idx + 1);
+   }
+
+   handleItemMove(itemToMove, idxFn) {
+      let movedItems = this.state.items.slice();
+      let selectedIdx = movedItems.indexOf(itemToMove);
+      let targetIdx = idxFn(selectedIdx);
+      if ((targetIdx >= 0) && (targetIdx < movedItems.length)) {
          movedItems.splice(selectedIdx, 1);
-         movedItems.splice(targetIdx, 0, this.selectedItem);
+         movedItems.splice(targetIdx, 0, itemToMove);
          this.setState({
             items: movedItems
          });
@@ -68,9 +72,10 @@ class List extends React.Component {
    renderListItem(item) {
       return (
             <ListItem key={item.id} value={item}
+                  isSortView={this.state.isSortView}
                   onChange={this.handleItemUpdate}
-                  onMove={this.handleItemMove}
-                  onDrag={this.handleItemDrag}
+                  onMoveUp={this.handleItemMoveUp}
+                  onMoveDown={this.handleItemMoveDown}
                   onDelete={this.handleItemDelete}>
             </ListItem>
       );
@@ -91,7 +96,7 @@ class List extends React.Component {
    render() {
       let mainList;
       let checkedList = [];
-      if (this.state.isCombinedView) {
+      if (this.state.isSortView) {
          mainList = this.state.items.map(item => this.renderListItem(item));
       } else {
          mainList = this.state.items.filter(item => !item.isComplete).map(item => this.renderListItem(item));
@@ -104,9 +109,9 @@ class List extends React.Component {
          <div>
             <div className="text-end">
                <input type="checkbox" className="btn-check" id="btn-check-outlined"
-                     checked={this.state.isCombinedView} autoComplete="off"
+                     checked={this.state.isSortView} autoComplete="off"
                      onChange={this.toggleViewMode}/>
-               <label className="btn btn-outline-light" htmlFor="btn-check-outlined">Combined View</label>
+               <label className="btn btn-outline-light" htmlFor="btn-check-outlined">Sort View</label>
             </div>
             <AddItem label="Add item to start" onAdd={this.addToStart}></AddItem>
             <div>{mainList}</div>

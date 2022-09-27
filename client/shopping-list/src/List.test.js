@@ -104,27 +104,39 @@ describe('List', () => {
       elements.forEach(element => userEvent.click(element));
    }
 
-   test('completed List Item shows in List section when combined view is enabled', () => {
+   test('completed List Item shows in List section when sort view is enabled', () => {
       render(<List />);
       const input = "silly text";
-      userEvent.click(screen.getByRole('checkbox', {name: /combined view/i}));
+      enableSortView();
       userAddItem(input);
       userCompleteItem();
       expect(screen.queryByText("Checked Items")).toBeNull();
    });
 
-   test('drag List Item down', () => {
+   function enableSortView() {
+      userEvent.click(screen.getByRole('checkbox', {name: /sort view/i}));
+   }
+
+   test('move buttons not present in default view', () => {
+      expect(screen.queryAllByRole('button', {name: /move item/i}).length).toBe(0);
+   });
+
+   test('move List Item down', () => {
       render(<List />);
       userAddItems(["a", "b", "c"]);
-      moveItem(0, 1);
+      enableSortView();
+      moveItemDown(0);
       expectListItems(["b", "a", "c"]);
    });
 
-   function moveItem(fromIdx, toIdx) {
-      const listItems = screen.getAllByTitle(/move item/i);
-      fireEvent.mouseDown(listItems[fromIdx], { bubbles: true });
-      fireEvent.dragStart(listItems[fromIdx], { bubbles: true });
-      fireEvent.dragOver(listItems[toIdx], { bubbles: true });
+   function moveItemDown(idx) {
+      const moveUpBtns = screen.getAllByRole('button', {name: /move item down/i});
+      userEvent.click(moveUpBtns[idx]);
+   }
+
+   function moveItemUp(idx) {
+      const moveUpBtns = screen.getAllByRole('button', {name: /move item up/i});
+      userEvent.click(moveUpBtns[idx]);
    }
 
    function userAddItems(list) {
@@ -134,10 +146,11 @@ describe('List', () => {
       }
    }
 
-   test('drag List Item up', () => {
+   test('move List Item up', () => {
       render(<List />);
       userAddItems(["a", "b", "c"]);
-      moveItem(2, 1);
-      expectListItems(["a", "c", "b"]);
+      enableSortView();
+      moveItemUp(1);
+      expectListItems(["b", "a", "c"]);
    });
 });
