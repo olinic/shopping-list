@@ -1,6 +1,7 @@
 import React from 'react';
 import AddItem from './AddItem';
 import ListItem from './ListItem';
+import localforage from 'localforage';
 
 class List extends React.Component {
 
@@ -10,6 +11,36 @@ class List extends React.Component {
          items: [],
          isSortView: false
       };
+      localforage.config({
+         name: 'ShoppingList',
+         version: 1,
+         storeName: 'listdata'
+      });
+   }
+
+   componentDidMount() {
+      this.loadState();
+   }
+
+   componentDidUpdate() {
+      this.saveState();
+   }
+
+   loadState() {
+      localforage.getItem("state").then(value => {
+         if (value === null) {
+            value = {
+               items: [],
+               isSortView: false
+            };
+            localforage.setItem("state", value);
+         }
+         this.setState(value);
+      });
+   }
+
+   saveState() {
+      localforage.setItem("state", this.state);
    }
 
    toggleViewMode = () => {
