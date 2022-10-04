@@ -82,7 +82,7 @@ class ListItem extends React.Component {
                <button className="btn btn-link"
                      aria-label="Complete list item"
                      onClick={this.toggleCompletion}>
-                  <i className={this.props.value.isComplete ? "fa-regular fa-circle-check" : "fa-regular fa-circle"}></i>
+                  <i className={this.props.value.isComplete ? "text-success fa-regular fa-circle-check" : "fa-regular fa-circle"}></i>
                </button>
             </div>
             <input className={"form-control bg-dark border-0 text-light" + (this.props.value.isComplete ? " text-st" : "")}

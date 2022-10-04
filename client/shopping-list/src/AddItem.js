@@ -44,7 +44,7 @@ class AddItem extends React.Component {
                <input type="text" className="form-control bg-dark text-light border-primary" 
                      onChange={this.handleChange}
                      value={this.state.text}
-                     placeholder="" aria-label={this.props.label}/>
+                     placeholder={this.props.placeholder} aria-label={this.props.label}/>
             </div>
          </form>
       );

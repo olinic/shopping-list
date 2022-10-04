@@ -144,10 +144,10 @@ class List extends React.Component {
                      onChange={this.toggleViewMode}/>
                <label className="btn btn-outline-light" htmlFor="btn-check-outlined">Sort View</label>
             </div>
-            <AddItem label="Add item to start" onAdd={this.addToStart}></AddItem>
+            <AddItem label="Add item to start" placeholder="Item to beginning" onAdd={this.addToStart}></AddItem>
             <div>{mainList}</div>
             {mainList.length > 0 &&
-               <AddItem label="Add item to end" onAdd={this.addToEnd}></AddItem>
+               <AddItem label="Add item to end" placeholder="Item to end" onAdd={this.addToEnd}></AddItem>
             }
             {(checkedList.length > 0) &&
                <div>
