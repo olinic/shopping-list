@@ -94,15 +94,15 @@ describe('List', () => {
       await userEvent.click(screen.getByRole('button', {name: /complete list item/i}));
    }
 
-   test('completed List Item shows in Checked Items section by default', async () => {
+   test('completed List Item shows in Checked Off section by default', async () => {
       render(<List />);
       const input = "silly text";
       await userAddItem(input);
       await userCompleteItem();
-      expect(screen.getByText("Checked Items")).toBeInTheDocument();
+      expect(screen.getByText("Checked Off")).toBeInTheDocument();
    });
 
-   test('completed List Item are in alphabetical order in Checked Items section', async () => {
+   test('completed List Item are in alphabetical order in Checked Off section', async () => {
       render(<List />);
       await userAddItems(["b", "c", "a"]);
       await userCompleteAllItems();
@@ -122,7 +122,7 @@ describe('List', () => {
       await enableSortView();
       await userAddItem(input);
       await userCompleteItem();
-      expect(screen.queryByText("Checked Items")).toBeNull();
+      expect(screen.queryByText("Checked Off")).toBeNull();
    });
 
    async function enableSortView() {

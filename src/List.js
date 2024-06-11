@@ -148,7 +148,7 @@ class List extends React.Component {
                <div>
                   <br/>
                   <hr/>
-                  <h2 className="text-secondary">Checked Items</h2>
+                  <h2 className="text-secondary">Checked Off</h2>
                </div>
             }
             {checkedList}
