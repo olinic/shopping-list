@@ -1,22 +1,18 @@
 import React from 'react';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { setupMocks, clear } from './Storage/MockStorageService';
 
 import List from './List';
 
-let storage = {};
-
 describe('List', () => {
    beforeAll(() => {
-      global.Storage.prototype.setItem = jest.fn((key, value) => {
-         storage[key] = value;
-      });
-      global.Storage.prototype.getItem = jest.fn((key) => storage[key]);
+      setupMocks();
    });
 
    beforeEach(() => {
       cleanup();
-      storage = {};
+      clear();
    });
 
    test('renders List component', () => {
