@@ -17,6 +17,9 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@tanstack/react-router": "^1.40.0",
+    "@tanstack/router-devtools": "^1.40.0",
+    "@tanstack/router-plugin": "^1.39.13",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^16.0.0",
@@ -50,6 +53,8 @@
       "\\.(css|less|sass|scss)$": "<rootDir>/src/MockStyle.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/src/MockFile.js"
     },
-    "setupFilesAfterEnv": ["<rootDir>/src/setupTests.ts"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.ts"
+    ]
   }
 }
