@@ -1,3 +1,4 @@
+import '../App.css'
 import React, { Suspense } from 'react'
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 
@@ -24,10 +25,14 @@ export const Route = createRootRoute({
           About
         </Link>
       </div> */}
-      <Outlet />
-      <Suspense>
-        <TanStackRouterDevtools />
-      </Suspense>
+        <div className="App bg-dark text-light">
+            <div className="container text-center">
+                <Outlet />
+            </div>
+        </div>
+        <Suspense>
+            <TanStackRouterDevtools />
+        </Suspense>
     </>
   ),
 })

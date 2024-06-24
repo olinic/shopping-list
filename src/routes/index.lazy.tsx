@@ -1,5 +1,5 @@
 import { createLazyFileRoute } from '@tanstack/react-router'
-import App from '../App'
+import List from '../List/List'
 
 export const Route = createLazyFileRoute('/')({
   component: Index,
@@ -7,6 +7,11 @@ export const Route = createLazyFileRoute('/')({
 
 function Index() {
   return (
-    <App></App>
+    <>
+      <h1 className="mt-4">
+        <i className="fa-solid fa-file-lines"></i> Shopping List
+      </h1>
+      <List></List>
+    </>
   )
 }
