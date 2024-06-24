@@ -2,7 +2,7 @@ import { Component } from 'react';
 import AddItem from './AddItem';
 import ListItem from './ListItem';
 import Item from './Item';
-import { getItem, setItem } from './Storage/StorageService';
+import { getItem, setItem } from '../Storage/StorageService';
 
 interface ListProps {}
 interface ListState {
