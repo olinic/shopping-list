@@ -12,7 +12,7 @@ jobs:
 
       - name: Setup 🔧
         run: |
-          yarn init
+          yarn install
 
       - name: Run Tests 🧐
         run: |
