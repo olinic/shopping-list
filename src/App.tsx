@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css'
 import List from './List';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         <List></List>
       </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

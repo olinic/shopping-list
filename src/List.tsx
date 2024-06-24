@@ -1,11 +1,18 @@
-import React from 'react';
+import { Component } from 'react';
 import AddItem from './AddItem';
 import ListItem from './ListItem';
+import Item from './Item';
 import { getItem, setItem } from './Storage/StorageService';
 
-class List extends React.Component {
+interface ListProps {}
+interface ListState {
+    items: Item[];
+    isSortView: boolean;
+}
 
-   constructor(props) {
+class List extends Component<ListProps, ListState> {
+
+   constructor(props: ListProps) {
       super(props);
       this.state = {
          items: [],
@@ -44,19 +51,19 @@ class List extends React.Component {
       });
    };
 
-   addToStart = (value) => {
+   addToStart = (value: Item) => {
       this.setState(state => ({
          items: [value].concat(state.items)
       }));
    }
 
-   addToEnd = (value) => {
+   addToEnd = (value: Item) => {
       this.setState(state => ({
          items: state.items.concat(value)
       }));
    }
 
-   handleItemUpdate = (updatedItem) => {
+   handleItemUpdate = (updatedItem: Item) => {
       const items = this.state.items.map(item => {
          if (item.id === updatedItem.id) {
             return updatedItem;
@@ -67,15 +74,15 @@ class List extends React.Component {
       this.setState({ items: items });
    }
 
-   handleItemMoveUp = (itemToMove) => {
+   handleItemMoveUp = (itemToMove: Item) => {
       this.handleItemMove(itemToMove, (idx) => idx - 1);
    }
 
-   handleItemMoveDown = (itemToMove) => {
+   handleItemMoveDown = (itemToMove: Item) => {
       this.handleItemMove(itemToMove, (idx) => idx + 1);
    }
 
-   handleItemMove(itemToMove, idxFn) {
+   handleItemMove(itemToMove: Item, idxFn: (arg: number) => number) {
       let movedItems = this.state.items.slice();
       let selectedIdx = movedItems.indexOf(itemToMove);
       let targetIdx = idxFn(selectedIdx);
@@ -88,14 +95,14 @@ class List extends React.Component {
       }
    }
 
-   handleItemDelete = (deletedItem) => {
+   handleItemDelete = (deletedItem: Item) => {
       const items = this.state.items.filter(item => {
          return (item.id !== deletedItem.id);
       });
       this.setState({ items: items });
    }
 
-   renderListItem(item) {
+   renderListItem(item: Item) {
       return (
             <ListItem key={item.id} value={item}
                   isSortView={this.state.isSortView}
@@ -107,7 +114,7 @@ class List extends React.Component {
       );
    }
 
-   textSort(a, b) {
+   textSort(a: Item, b: Item) {
       const textA = a.text.toUpperCase();
       const textB = b.text.toUpperCase();
       if (textA > textB) {
@@ -121,7 +128,7 @@ class List extends React.Component {
 
    render() {
       let mainList;
-      let checkedList = [];
+      let checkedList: any[] = [];
       if (this.state.isSortView) {
          mainList = this.state.items.map(item => this.renderListItem(item));
       } else {

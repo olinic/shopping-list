@@ -1,30 +1,39 @@
-import React from 'react';
+import { Component, Fragment, ChangeEvent, FormEvent } from 'react';
+import Item, { ItemEventHandler } from './Item.tsx';
 
-class ListItem extends React.Component {
 
-   toggleCompletion = (e) => {
+
+interface ListItemProps {
+    value: Item;
+    isSortView: boolean;
+    onChange?: ItemEventHandler;
+    onDelete?: ItemEventHandler;
+    onMoveUp?: ItemEventHandler;
+    onMoveDown?: ItemEventHandler;
+}
+
+class ListItem extends Component<ListItemProps> {
+
+   toggleCompletion = () => {
       if (this.props.onChange) {
-         this.props.onChange( {
+         this.props.onChange({
             ...this.props.value,
             isComplete: !this.props.value.isComplete
          });
       }
    };
 
-   handleChange = (e) => {
+   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       if (this.props.onChange) {
          this.props.onChange({
             ...this.props.value,
-            text: e.target.value
+            text: event.target.value
          });
       }
    };
 
-   handleSubmit = (e) => {
-      e.preventDefault();
-      if (this.props.onReturn) {
-         this.props.onReturn();
-      }
+   handleSubmit = (event: FormEvent) => {
+      event.preventDefault();
    };
 
    handleDelete = () => {
@@ -48,7 +57,7 @@ class ListItem extends React.Component {
    getAddonButtons() {
       if (this.props.isSortView) {
          return (
-            <React.Fragment>
+            <Fragment>
                <div className="bg-dark border-0 input-group-text">
                   <button className="btn btn-sm btn-dark text-light" type="button" 
                         onClick={this.handleMoveUp} aria-label="Move item up">
@@ -61,7 +70,7 @@ class ListItem extends React.Component {
                      <i className="fa-solid fa-arrow-down"></i>
                   </button>
                </div>
-            </React.Fragment>
+            </Fragment>
          );
       } else {
          return (

@@ -1,24 +1,33 @@
-import React from 'react';
+import { Component, ChangeEvent, FormEvent } from 'react';
+import { ItemEventHandler } from './Item.tsx';
 
-class AddItem extends React.Component {
+interface AddItemProps {
+    label: string;
+    placeholder: string
+    onAdd?: ItemEventHandler;
+};
 
-   constructor(props) {
+interface AddItemState {
+    text: string;
+};
+
+class AddItem extends Component<AddItemProps, AddItemState> {
+
+   constructor(props: AddItemProps) {
       super(props);
       this.state = {
          text: ''
       };
-      this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
    }
 
-   handleChange(e) {
+   handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       this.setState({ 
-         text: e.target.value
+         text: event.target.value
       });
-   }
+   };
 
-   handleSubmit(e) {
-      e.preventDefault();
+   handleSubmit = (event: FormEvent) => {
+      event.preventDefault();
       const value = this.state.text;
       if (value.length > 0) {
          if (this.props.onAdd) {
@@ -32,7 +41,7 @@ class AddItem extends React.Component {
             text: ''
          });
       }
-   }
+   };
 
    render() {
       return (

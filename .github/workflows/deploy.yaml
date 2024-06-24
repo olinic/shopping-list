@@ -12,17 +12,17 @@ jobs:
 
       - name: Setup 🔧
         run: |
-          npm ci
+          yarn init
 
       - name: Run Tests 🧐
         run: |
-          npm test
+          yarn test
 
       - name: Build ⚒️
         run: |
-          npm run build
+          yarn build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # The folder the action should deploy.
+          folder: dist # The folder the action should deploy.

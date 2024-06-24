@@ -1,18 +1,14 @@
-import React from 'react';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { setupMocks, clear } from './Storage/MockStorageService';
+import * as StorageService from './Storage/StorageService';
 
 import List from './List';
 
 describe('List', () => {
-   beforeAll(() => {
-      setupMocks();
-   });
 
    beforeEach(() => {
       cleanup();
-      clear();
+      StorageService.clear();
    });
 
    test('renders List component', () => {
@@ -20,14 +16,14 @@ describe('List', () => {
       expect(screen.getByRole('textbox')).toBeInTheDocument();
    });
 
-   async function userAddItemToEnd(text) {
+   async function userAddItemToEnd(text: string) {
       const addItemToEnd = {name: "Add item to end"};
       await userEvent.click(screen.getByRole('textbox', addItemToEnd));
       await userEvent.keyboard(text);
       await userEvent.click(screen.getByRole('button', addItemToEnd));
    }
 
-   async function userAddItem(text) {
+   async function userAddItem(text: string) {
       const addItem = {name: /add item to start/i};
       await userEvent.click(screen.getByRole('textbox', addItem));
       await userEvent.keyboard(text);
@@ -41,7 +37,7 @@ describe('List', () => {
       expect(screen.getByDisplayValue(input)).toBeInTheDocument();
    });
 
-   function expectListItems(expectedList) {
+   function expectListItems(expectedList: string[]) {
       const actualItems = screen.getAllByRole('textbox', {name: /list item/i});
       expect(actualItems).toHaveLength(expectedList.length);
       for (let i = 0; i < expectedList.length; i++) {
@@ -129,7 +125,7 @@ describe('List', () => {
       await userEvent.click(screen.getByRole('checkbox', {name: /sort view/i}));
    }
 
-   async function userAddItems(list) {
+   async function userAddItems(list: string[]) {
       const reversed = list.slice().reverse();
       for (const item of reversed) {
          await userAddItem(item);
@@ -148,12 +144,12 @@ describe('List', () => {
       expectListItems(["b", "a", "c"]);
    });
 
-   async function moveItemDown(idx) {
+   async function moveItemDown(idx: number) {
       const moveUpBtns = screen.getAllByRole('button', {name: /move item down/i});
       await userEvent.click(moveUpBtns[idx]);
    }
 
-   async function moveItemUp(idx) {
+   async function moveItemUp(idx: number) {
       const moveUpBtns = screen.getAllByRole('button', {name: /move item up/i});
       await userEvent.click(moveUpBtns[idx]);
    }
