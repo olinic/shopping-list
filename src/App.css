@@ -15,3 +15,11 @@
   text-decoration: line-through;
 }
 
+h1 {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.App .max-width-sm {
+  max-width: 540px;
+}

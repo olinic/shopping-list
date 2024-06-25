@@ -26,9 +26,9 @@ export const Route = createRootRoute({
         </Link>
       </div> */}
         <div className="App bg-dark text-light">
-            <div className="container text-center">
-                <Outlet />
-            </div>
+          <div className="container">
+            <Outlet />
+          </div>
         </div>
         <Suspense>
             <TanStackRouterDevtools />

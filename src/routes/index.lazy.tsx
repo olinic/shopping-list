@@ -8,7 +8,7 @@ export const Route = createLazyFileRoute('/')({
 function Index() {
   return (
     <>
-      <h1 className="mt-4">
+      <h1>
         <i className="fa-solid fa-file-lines"></i> Shopping List
       </h1>
       <List></List>
